@@ -1,17 +1,14 @@
 <idea-plugin>
-    <id>Pojo Builder</id>
-    <name>Pojo Builder</name>
-    <version>1.2</version>
-    <vendor email="asklyushkin@gmail.com">Aleksandr Kliushkin</vendor>
+    <id>Java Builder Generator</id>
+    <name>Java Builder Generator</name>
+    <version>1.0</version>
 
     <description><![CDATA[
-     Pojo Builder
+     Java Builder Generator
     ]]></description>
 
     <change-notes><![CDATA[
-      16.03.2018 - 1.2 - add checkboxes for requireNonNull in dialog window <br/>
-      16.03.2018 - 1.1 - fix builder class private access <br/>
-      09.03.2018 - 1.0 - First release <br/>
+      07.06.2018 - 1.0 - First release <br/>
     ]]>
     </change-notes>
 
@@ -22,8 +19,8 @@
 
 
     <actions>
-        <action id="org.idea.plugin.builder" class="org.idea.plugin.BuilderCodeInsightAction" text="Pojo builder"
-                description="pojo builder">
+        <action id="org.idea.plugin.builder" class="org.idea.plugin.jbgenerator.BuilderCodeInsightAction" text="Java Builder Generator"
+                description="Java Builder Generator">
             <add-to-group group-id="JavaGenerateGroup1" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt b"/>
         </action>
