@@ -59,17 +59,18 @@ public class BuilderCodeInsightActionHandler implements LanguageCodeInsightActio
 
             // Default options
             BuilderGenerationOptions builderGenerationOptions = BuilderGenerationOptions.builder().build();
+
             ClassGenerationOptions classGenerationOptions = ClassGenerationOptions.builder()
                     .withIsJacksonEnabled(isOptionEnabled(BuilderOption.IS_JACKSON_ENABLED))
                     .withIsRequireNonNullEnabled(isOptionEnabled(BuilderOption.REQUIRE_NON_NULL_IN_CONSTRUCTOR))
                     .withIsConstructorPropertiesEnabled(isOptionEnabled(BuilderOption.REQUIRE_CONSTRUCTOR_PROPERTIES_IN_CONSTRUCTOR))
                     .build();
 
-
             BuilderPlugin builderPlugin = DefaultBuilderPlugin.builder()
                     .withProject(project)
                     .withClassGenerationOptions(classGenerationOptions)
-                    .withBuilderGenerationOptions(builderGenerationOptions)
+                    .withBuilderGenerationOptions(
+                            isOptionEnabled(BuilderOption.ADD_BUILDER) ? builderGenerationOptions : null)
                     .build();
 
             builderPlugin.process(targetClass, selectedFields);

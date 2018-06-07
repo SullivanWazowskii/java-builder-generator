@@ -69,10 +69,11 @@ public final class BuilderDialog {
 
     private static JCheckBox[] buildCheckBoxes(PropertiesComponent propertiesComponent) {
 
-        final JCheckBox[] checkBoxesArray = new JCheckBox[3];
+        final JCheckBox[] checkBoxesArray = new JCheckBox[4];
         checkBoxesArray[0] = buildJacksonCheckbox(propertiesComponent);
         checkBoxesArray[1] = buildRequireNonNullConstructorCheckbox(propertiesComponent);
         checkBoxesArray[2] = buildConstructorPropertiesCheckbox(propertiesComponent);
+        checkBoxesArray[3] = buildAddBuilderCheckbox(propertiesComponent);
         return checkBoxesArray;
     }
 
@@ -111,6 +112,20 @@ public final class BuilderDialog {
         optionCheckBox.setToolTipText("Objects.requireNonNull will be added in constructor");
 
         String property = BuilderOption.REQUIRE_NON_NULL_IN_CONSTRUCTOR.getProperty();
+        optionCheckBox.setSelected(propertiesComponent.isTrueValue(property));
+        optionCheckBox.addItemListener(itemEvent ->
+                propertiesComponent.setValue(property, Boolean.toString(optionCheckBox.isSelected())));
+        return optionCheckBox;
+    }
+
+
+    @NotNull
+    private static JCheckBox buildAddBuilderCheckbox(final PropertiesComponent propertiesComponent) {
+        JCheckBox optionCheckBox = new NonFocusableCheckBox("Add inner static builder");
+//        optionCheckBox.setMnemonic('c');
+        optionCheckBox.setToolTipText("Inner static builder will be added in constructor");
+
+        String property = BuilderOption.ADD_BUILDER.getProperty();
         optionCheckBox.setSelected(propertiesComponent.isTrueValue(property));
         optionCheckBox.addItemListener(itemEvent ->
                 propertiesComponent.setValue(property, Boolean.toString(optionCheckBox.isSelected())));

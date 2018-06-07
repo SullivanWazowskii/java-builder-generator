@@ -14,6 +14,7 @@ import org.idea.plugin.jbgenerator.settings.ClassGenerationOptions;
 import org.idea.plugin.jbgenerator.settings.ClassGenerationSettings;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static org.idea.plugin.jbgenerator.utils.PsiAdderReplacePolicy.*;
@@ -31,7 +32,7 @@ public class DefaultBuilderPlugin implements BuilderPlugin {
 
     private DefaultBuilderPlugin(@Nonnull Project project,
                                  @Nonnull ClassGenerationOptions classGenerationOptions,
-                                 @Nonnull BuilderGenerationOptions builderGenerationOptions) {
+                                 @Nullable BuilderGenerationOptions builderGenerationOptions) {
         this.project = project;
 
         this.classGenerationOptions = classGenerationOptions;
@@ -58,11 +59,13 @@ public class DefaultBuilderPlugin implements BuilderPlugin {
         // TODO: should be not static
         ToStringGenerationStrategy.generateToString(targetClass);
 
-        PsiMethod builderMethod = builderGenerationStrategy.createBuilderMethod(builderGenerationSettings);
-        addMethod(targetClass, builderMethod);
+        if (builderGenerationOptions != null) {
+            PsiMethod builderMethod = builderGenerationStrategy.createBuilderMethod(builderGenerationSettings);
+            addMethod(targetClass, builderMethod);
 
-        PsiClass builderClass = builderGenerationStrategy.createBuilderClass(builderGenerationSettings);
-        addClass(targetClass, builderClass);
+            PsiClass builderClass = builderGenerationStrategy.createBuilderClass(builderGenerationSettings);
+            addClass(targetClass, builderClass);
+        }
     }
 
     public static Builder builder() {
