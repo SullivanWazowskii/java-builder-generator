@@ -15,6 +15,8 @@ public class ImportGenerationStrategy {
     public static final String JAVAX_ANNOTATION_NONNULL = "javax.annotation.Nonnull";
     public static final String JAVAX_ANNOTATION_NULLABLE = "javax.annotation.Nullable";
     public static final String OBJECTS_REQUIRE_NON_NULL = "java.util.Objects.requireNonNull";
+    public static final String API_MODEL = "io.swagger.annotations.ApiModel";
+    public static final String API_PROPERTY = "io.swagger.annotations.ApiModelProperty";
 
     private final Project project;
 

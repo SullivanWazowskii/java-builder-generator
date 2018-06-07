@@ -69,11 +69,12 @@ public final class BuilderDialog {
 
     private static JCheckBox[] buildCheckBoxes(PropertiesComponent propertiesComponent) {
 
-        final JCheckBox[] checkBoxesArray = new JCheckBox[4];
+        final JCheckBox[] checkBoxesArray = new JCheckBox[5];
         checkBoxesArray[0] = buildJacksonCheckbox(propertiesComponent);
         checkBoxesArray[1] = buildRequireNonNullConstructorCheckbox(propertiesComponent);
         checkBoxesArray[2] = buildConstructorPropertiesCheckbox(propertiesComponent);
         checkBoxesArray[3] = buildAddBuilderCheckbox(propertiesComponent);
+        checkBoxesArray[4] = buildAddSwaggerApiAnnotationsCheckbox(propertiesComponent);
         return checkBoxesArray;
     }
 
@@ -126,6 +127,19 @@ public final class BuilderDialog {
         optionCheckBox.setToolTipText("Inner static builder will be added in constructor");
 
         String property = BuilderOption.ADD_BUILDER.getProperty();
+        optionCheckBox.setSelected(propertiesComponent.isTrueValue(property));
+        optionCheckBox.addItemListener(itemEvent ->
+                propertiesComponent.setValue(property, Boolean.toString(optionCheckBox.isSelected())));
+        return optionCheckBox;
+    }
+
+    @NotNull
+    private static JCheckBox buildAddSwaggerApiAnnotationsCheckbox(final PropertiesComponent propertiesComponent) {
+        JCheckBox optionCheckBox = new NonFocusableCheckBox("Add swagger api annotations builder");
+//        optionCheckBox.setMnemonic('c');
+        optionCheckBox.setToolTipText("Swagger api annotations will be added on class and fields");
+
+        String property = BuilderOption.ADD_SWAGGER_API_ANNOTATIONS.getProperty();
         optionCheckBox.setSelected(propertiesComponent.isTrueValue(property));
         optionCheckBox.addItemListener(itemEvent ->
                 propertiesComponent.setValue(property, Boolean.toString(optionCheckBox.isSelected())));

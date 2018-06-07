@@ -30,11 +30,20 @@ public class ConstructorGenerationStrategy {
         PsiClass targetClass = classGenerationInfo.getClazz();
         List<Field> fields = classGenerationInfo.getFields();
         ClassGenerationOptions creationOption = classGenerationInfo.getOptions();
+        boolean isAddSwaggerAnnotationsEnabled = creationOption.isAddSwaggerAnnotationsEnabled();
 
         PsiMethod constructor = createEmptyPrivateConstructor(classGenerationInfo.getClazz());
 
+        if (isAddSwaggerAnnotationsEnabled) {
+            targetClass.getModifierList().addAnnotation(getApiModel());
+        }
+
         for (Field field : fields) {
             setModifiersIfAbsents(field);
+            if (isAddSwaggerAnnotationsEnabled) {
+                field.getPsiFieldMember().getElement().getModifierList().addAnnotation(
+                        getApiModelProperty(field.isOptional()));
+            }
             constructor.getParameterList().add(createParameter(field, creationOption));
             constructor.getBody().add(createAssignStatement(field, creationOption));
         }
@@ -45,6 +54,11 @@ public class ConstructorGenerationStrategy {
 
             importGenerationStrategy.addImport(targetClass, JSON_PROPERTY);
             importGenerationStrategy.addImport(targetClass, JSON_CREATOR);
+        }
+
+        if (isAddSwaggerAnnotationsEnabled) {
+            importGenerationStrategy.addImport(targetClass, API_MODEL);
+            importGenerationStrategy.addImport(targetClass, API_PROPERTY);
         }
 
         if (creationOption.isRequireNonNullEnabled()) {

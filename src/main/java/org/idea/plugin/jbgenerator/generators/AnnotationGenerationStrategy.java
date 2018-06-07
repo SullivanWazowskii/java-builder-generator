@@ -24,6 +24,15 @@ public class AnnotationGenerationStrategy {
         return "Nullable";
     }
 
+    public static String getApiModel() {
+        return "ApiModel(description = \"\")";
+    }
+
+    public static String getApiModelProperty(boolean isOptional) {
+        return "ApiModelProperty(value = \"\",  example = \"\", required =\"" + Boolean.toString(!isOptional) + "\" )";
+    }
+
+
     public static String getConstructorProperties(List<Field> fields) {
         StringBuilder annotationString = new StringBuilder("java.beans.ConstructorProperties({");
         int size = fields.size();

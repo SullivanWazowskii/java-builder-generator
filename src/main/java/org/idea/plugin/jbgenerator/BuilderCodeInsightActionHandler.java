@@ -64,6 +64,7 @@ public class BuilderCodeInsightActionHandler implements LanguageCodeInsightActio
                     .withIsJacksonEnabled(isOptionEnabled(BuilderOption.IS_JACKSON_ENABLED))
                     .withIsRequireNonNullEnabled(isOptionEnabled(BuilderOption.REQUIRE_NON_NULL_IN_CONSTRUCTOR))
                     .withIsConstructorPropertiesEnabled(isOptionEnabled(BuilderOption.REQUIRE_CONSTRUCTOR_PROPERTIES_IN_CONSTRUCTOR))
+                    .withIsAddSwaggerAnnotationsEnabled(isOptionEnabled(BuilderOption.ADD_SWAGGER_API_ANNOTATIONS))
                     .build();
 
             BuilderPlugin builderPlugin = DefaultBuilderPlugin.builder()

@@ -8,13 +8,17 @@ public class ClassGenerationOptions {
 
     private boolean isConstructorPropertiesEnabled;
 
+    private boolean isAddSwaggerAnnotationsEnabled;
+
 
     private ClassGenerationOptions(boolean isJacksonEnabled,
                                    boolean isRequireNonNullEnabled,
-                                   boolean isConstructorPropertiesEnabled) {
+                                   boolean isConstructorPropertiesEnabled,
+                                   boolean isAddSwaggerAnnotationsEnabled) {
         this.isJacksonEnabled = isJacksonEnabled;
         this.isRequireNonNullEnabled = isRequireNonNullEnabled;
         this.isConstructorPropertiesEnabled = isConstructorPropertiesEnabled;
+        this.isAddSwaggerAnnotationsEnabled = isAddSwaggerAnnotationsEnabled;
     }
 
     public static Builder builder() {
@@ -33,12 +37,18 @@ public class ClassGenerationOptions {
         return isConstructorPropertiesEnabled;
     }
 
+
+    public boolean isAddSwaggerAnnotationsEnabled() {
+        return isAddSwaggerAnnotationsEnabled;
+    }
+
     @Override
     public String toString() {
         return "ClassGenerationOptions{" +
                 "isJacksonEnabled=" + isJacksonEnabled +
                 ", isRequireNonNullEnabled=" + isRequireNonNullEnabled +
                 ", isConstructorPropertiesEnabled=" + isConstructorPropertiesEnabled +
+                ", isAddSwaggerAnnotationsEnabled=" + isAddSwaggerAnnotationsEnabled +
                 '}';
     }
 
@@ -46,6 +56,7 @@ public class ClassGenerationOptions {
         private boolean isJacksonEnabled;
         private boolean isRequireNonNullEnabled;
         private boolean isConstructorPropertiesEnabled;
+        private boolean isAddSwaggerAnnotationsEnabled;
 
         public Builder withIsJacksonEnabled(boolean isJacksonEnabled) {
             this.isJacksonEnabled = isJacksonEnabled;
@@ -62,8 +73,15 @@ public class ClassGenerationOptions {
             return this;
         }
 
+        public Builder withIsAddSwaggerAnnotationsEnabled(boolean isAddSwaggerAnnotationsEnabled) {
+            this.isAddSwaggerAnnotationsEnabled = isAddSwaggerAnnotationsEnabled;
+            return this;
+        }
+
+
         public ClassGenerationOptions build() {
-            return new ClassGenerationOptions(isJacksonEnabled, isRequireNonNullEnabled, isConstructorPropertiesEnabled);
+            return new ClassGenerationOptions(isJacksonEnabled, isRequireNonNullEnabled,
+                    isConstructorPropertiesEnabled, isAddSwaggerAnnotationsEnabled);
         }
     }
 }
